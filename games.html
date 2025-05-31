@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Games - VXL Studios</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #000;
+      color: #00ffe7;
+    }
+
+    nav {
+      background: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      box-shadow: 0 0 20px #00f0ff;
+    }
+
+    nav .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    nav .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    nav .logo span {
+      font-size: 1.5em;
+      color: #00faff;
+      font-weight: bold;
+      text-shadow: 0 0 10px #00faff;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #00fff7;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #ff00e0;
+      text-shadow: 0 0 10px #ff00e0;
+    }
+
+    header {
+      text-align: center;
+      margin: 40px 20px;
+    }
+
+    header h1 {
+      font-size: 2.8em;
+      color: #00fff2;
+      text-shadow: 0 0 15px #00fff2;
+    }
+
+    .games-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 40px 20px;
+      gap: 30px;
+    }
+
+    .game-card {
+      background: #111;
+      border: 2px solid #00faff;
+      border-radius: 12px;
+      width: 300px;
+      padding: 20px;
+      box-shadow: 0 0 20px #00faff33;
+      transition: transform 0.3s;
+      text-align: center;
+    }
+
+    .game-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #00faffaa;
+    }
+
+    .game-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .game-card h3 {
+      font-size: 1.5em;
+      color: #ff00ff;
+      margin-bottom: 10px;
+    }
+
+    .game-card p {
+      font-size: 1em;
+      color: #ccc;
+    }
+
+    .release-date {
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: #888;
+    }
+
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #666;
+      border-top: 1px solid #222;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <img src="logo.png" alt="VXL Logo">
+      <span>VXL Studios</span>
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">Games</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>Explore Our Games</h1>
+  </header>
+
+  <div class="games-container">
+    <div class="game-card">
+      <img src="noFilter.png" alt="Catch Storm Logo">
+      <h3>Catch Storm</h3>
+      <p>Catch parts, Be the richest, Explore, Basic game. Revamp coming soon, Will reset OG tag and catches amount</p>
+      <div class="release-date">Released: October 17th 2024</div>
+    </div>
+    <div class="game-card">
+      <img src="istockphoto-1472933890-612x612.jpg" alt="Lifestate Logo">
+      <h3>Lifestate</h3>
+      <p>Deep life simulator: build businesses, rent homes, survive and thrive.</p>
+      <div class="release-date">Released: ?</div>
+    </div>
+    <!-- Add more game-cards here if needed -->
+  </div>
+
+  <footer>
+    &copy; 2025 VXL Studios. All rights reserved.
+  </footer>
+</body>
+</html>
