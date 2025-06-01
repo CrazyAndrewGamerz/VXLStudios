@@ -11,7 +11,6 @@
       background: #000;
       color: #00ffe7;
     }
-
     nav {
       background: #111;
       display: flex;
@@ -20,53 +19,44 @@
       padding: 15px 30px;
       box-shadow: 0 0 20px #00f0ff;
     }
-
     nav .logo {
       display: flex;
       align-items: center;
     }
-
     nav .logo img {
       height: 40px;
       margin-right: 10px;
     }
-
     nav .logo span {
       font-size: 1.5em;
       color: #00faff;
       font-weight: bold;
       text-shadow: 0 0 10px #00faff;
     }
-
     nav ul {
       list-style: none;
       display: flex;
       gap: 25px;
     }
-
     nav ul li a {
       text-decoration: none;
       color: #00fff7;
       font-size: 1em;
       transition: 0.3s;
     }
-
     nav ul li a:hover {
       color: #ff00e0;
       text-shadow: 0 0 10px #ff00e0;
     }
-
     header {
       text-align: center;
       margin: 40px 20px;
     }
-
     header h1 {
       font-size: 2.8em;
       color: #00fff2;
       text-shadow: 0 0 15px #00fff2;
     }
-
     .games-container {
       display: flex;
       flex-wrap: wrap;
@@ -74,7 +64,6 @@
       padding: 40px 20px;
       gap: 30px;
     }
-
     .game-card {
       background: #111;
       border: 2px solid #00faff;
@@ -85,36 +74,30 @@
       transition: transform 0.3s;
       text-align: center;
     }
-
     .game-card:hover {
       transform: scale(1.05);
       box-shadow: 0 0 30px #00faffaa;
     }
-
     .game-card img {
       width: 80px;
       height: 80px;
       object-fit: contain;
       margin-bottom: 10px;
     }
-
     .game-card h3 {
       font-size: 1.5em;
       color: #ff00ff;
       margin-bottom: 10px;
     }
-
     .game-card p {
       font-size: 1em;
       color: #ccc;
     }
-
     .release-date {
       margin-top: 10px;
       font-size: 0.9em;
       color: #888;
     }
-
     footer {
       background: #111;
       text-align: center;
@@ -134,6 +117,7 @@
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="#">Games</a></li>
+      <li><a href="work.html">Work at VXL Studios</a></li>
     </ul>
   </nav>
 
@@ -142,30 +126,65 @@
   </header>
 
   <div class="games-container">
-    <div class="game-card">
-      <img src="noFilter.png" alt="Catch Storm Logo">
-      <h3>Catch Storm</h3>
-      <p>Catch parts, Be the richest, Explore, Basic game. Revamp coming soon, Will reset OG tag and catches amount</p>
-      <div class="release-date">Released: October 17th 2024</div>
+    <div class="game-card" id="game-6686325904">
+      <img src="" alt="Catch Storm Thumbnail">
+      <h3 class="game-title">Loading...</h3>
+      <p class="game-description">Loading description...</p>
+      <div class="release-date">Loading release date...</div>
+      <p class="game-stats">Loading stats...</p>
     </div>
-    <div class="game-card">
-      <img src="istockphoto-1472933890-612x612.jpg" alt="Lifestate Logo">
-      <h3>Lifestate</h3>
-      <p>Deep life simulator: build businesses, rent homes, survive and thrive.</p>
-      <div class="release-date">Released: ?</div>
+    <div class="game-card" id="game-7815064533">
+      <img src="" alt="BioShift Thumbnail">
+      <h3 class="game-title">Loading...</h3>
+      <p class="game-description">Loading description...</p>
+      <div class="release-date">Loading release date...</div>
+      <p class="game-stats">Loading stats...</p>
     </div>
-    <div class="game-card">
-    <img src="image.png" alt="BioShift Logo">
-    <h3>BioShift</h3>
-    <p>Terraform a dead planet, create life, and mutate rare plants. Nature meets sci-fi. Fully original.</p>
-    <div class="release-date">In Development – 2025- early 2026</div>
+    <div class="game-card" id="game-7822488245">
+      <img src="" alt="Lifestate Thumbnail">
+      <h3 class="game-title">Loading...</h3>
+      <p class="game-description">Loading description...</p>
+      <div class="release-date">Loading release date...</div>
+      <p class="game-stats">Loading stats...</p>
     </div>
-
-    <!-- Add more game-cards here if needed -->
   </div>
 
   <footer>
     &copy; 2025 VXL Studios. All rights reserved.
   </footer>
+
+  <script>
+    const games = [
+      { placeId: '6686325904', elementId: 'game-6686325904' },
+      { placeId: '7815064533', elementId: 'game-7815064533' },
+      { placeId: '7822488245', elementId: 'game-7822488245' }
+    ];
+
+    games.forEach(async (game) => {
+      try {
+        const universeResponse = await fetch(`https://apis.roblox.com/universes/v1/places/${game.placeId}/universe`);
+        const universeData = await universeResponse.json();
+        const universeId = universeData.universeId;
+
+        const gameInfoResponse = await fetch(`https://games.roblox.com/v1/games?universeIds=${universeId}`);
+        const gameInfoData = await gameInfoResponse.json();
+        const gameInfo = gameInfoData.data[0];
+
+        const thumbnailResponse = await fetch(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${universeId}&size=512x512&format=Png`);
+        const thumbnailData = await thumbnailResponse.json();
+        const thumbnailUrl = thumbnailData.data[0].imageUrl;
+
+        const gameCard = document.getElementById(game.elementId);
+        gameCard.querySelector('img').src = thumbnailUrl;
+        gameCard.querySelector('.game-title').innerText = gameInfo.name;
+        gameCard.querySelector('.game-description').innerText = gameInfo.description;
+        gameCard.querySelector('.release-date').innerText = `Created: ${new Date(gameInfo.created).toLocaleDateString()}`;
+        gameCard.querySelector('.game-stats').innerText = `${gameInfo.playing} playing | ${gameInfo.visits.toLocaleString()} visits`;
+
+      } catch (error) {
+        console.error(`Error loading game data for ${game.placeId}:`, error);
+      }
+    });
+  </script>
 </body>
 </html>
