@@ -153,38 +153,32 @@
     &copy; 2025 VXL Studios. All rights reserved.
   </footer>
 
-  <script>
-    const games = [
-      { placeId: '6686325904', elementId: 'game-6686325904' },
-      { placeId: '7815064533', elementId: 'game-7815064533' },
-      { placeId: '7822488245', elementId: 'game-7822488245' }
-    ];
+<script>
+  const games = [
+    { universeId: '5246999974', elementId: 'game-6686325904' }, // Catch Storm
+    { universeId: '5374254031', elementId: 'game-7815064533' }, // Bioshift
+    { universeId: '5377903371', elementId: 'game-7822488245' }  // Lifestate
+  ];
 
-    games.forEach(async (game) => {
-      try {
-        const universeResponse = await fetch(`https://apis.roblox.com/universes/v1/places/${game.placeId}/universe`);
-        const universeData = await universeResponse.json();
-        const universeId = universeData.universeId;
+  games.forEach(async (game) => {
+    try {
+      const gameInfoRes = await fetch(`https://games.roblox.com/v1/games?universeIds=${game.universeId}`);
+      const gameInfo = (await gameInfoRes.json()).data[0];
 
-        const gameInfoResponse = await fetch(`https://games.roblox.com/v1/games?universeIds=${universeId}`);
-        const gameInfoData = await gameInfoResponse.json();
-        const gameInfo = gameInfoData.data[0];
+      const thumbRes = await fetch(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${game.universeId}&size=512x512&format=Png`);
+      const thumbUrl = (await thumbRes.json()).data[0].imageUrl;
 
-        const thumbnailResponse = await fetch(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${universeId}&size=512x512&format=Png`);
-        const thumbnailData = await thumbnailResponse.json();
-        const thumbnailUrl = thumbnailData.data[0].imageUrl;
+      const el = document.getElementById(game.elementId);
+      el.querySelector('img').src = thumbUrl;
+      el.querySelector('.game-title').innerText = gameInfo.name;
+      el.querySelector('.game-description').innerText = gameInfo.description || 'No description available.';
+      el.querySelector('.release-date').innerText = `Created: ${new Date(gameInfo.created).toLocaleDateString()}`;
+      el.querySelector('.game-stats').innerText = `${gameInfo.playing.toLocaleString()} playing | ${gameInfo.visits.toLocaleString()} visits`;
+    } catch (err) {
+      console.error(`🔥 ERROR for universeId ${game.universeId}:`, err);
+    }
+  });
+</script>
 
-        const gameCard = document.getElementById(game.elementId);
-        gameCard.querySelector('img').src = thumbnailUrl;
-        gameCard.querySelector('.game-title').innerText = gameInfo.name;
-        gameCard.querySelector('.game-description').innerText = gameInfo.description;
-        gameCard.querySelector('.release-date').innerText = `Created: ${new Date(gameInfo.created).toLocaleDateString()}`;
-        gameCard.querySelector('.game-stats').innerText = `${gameInfo.playing} playing | ${gameInfo.visits.toLocaleString()} visits`;
-
-      } catch (error) {
-        console.error(`Error loading game data for ${game.placeId}:`, error);
-      }
-    });
-  </script>
 </body>
 </html>
